@@ -47,7 +47,7 @@ module Formotion
 
         add_callbacks(field)
 
-        cell.swizzle(:layoutSubviews) do
+        cell.send(:swizzle, :layoutSubviews) do
           def layoutSubviews
             old_layoutSubviews
 
@@ -64,7 +64,7 @@ module Formotion
         end
 
         if UIDevice.currentDevice.systemVersion >= "6.0"
-          field.swizzle(:setText) do
+          field.send(:swizzle, :setText) do
             def setText(text)
               r = old_setText(text)
               self.sendActionsForControlEvents(UIControlEventEditingChanged)
